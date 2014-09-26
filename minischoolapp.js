@@ -1,8 +1,10 @@
 SchoolObj = new Meteor.Collection('school');
 if (Meteor.isClient) {
-
+  Meteor.subscribe('theSchoolList');
+ 
   Template.schoolList.list=function(){
-	  return SchoolObj.find({ownerId:Meteor.userId()},{sort:{schoolName:-1}});
+	  
+	  return SchoolObj.find({},{sort:{schoolName:-1}});
   };
 
   Template.schoolList.addClassBox=function(){
@@ -12,8 +14,8 @@ if (Meteor.isClient) {
   Template.schoolList.viewClass=function(){
 	  if(Session.equals('viewClasses',this._id)){		  
 			var classNames=SchoolObj.findOne({_id:this._id});
-			return classNames.classes;
-	  }		  //console.lg(this._id);	
+			return classNames;
+	  }		  
   };
 
   Template.schoolList.addTeacher=function(){
@@ -23,19 +25,20 @@ if (Meteor.isClient) {
   Template.schoolList.events({
 	  'click #addClassButton':function(theEvent,theTemplate){
 			Session.set('addClasstoSchool',this._id);
+			Meteor.flush();
+			theTemplate.find("#className").focus();
 			//console.log(this._id);
 	  },
 	
 	  'click #addClass':function(theEvent,theTemplate){
+		 
+		  var uniqid = Date.now();
 		  schoolName=theTemplate.find("#className").value;
-		 SchoolObj.update({_id:this._id},{$addToSet:{classes:{name:schoolName}}});
+		 SchoolObj.update({_id:this._id},{$addToSet:{classes:{classId:uniqid,name:schoolName}}});
 		 Session.set('addClasstoSchool',false);
 	  },
 	
-	  'focusout #className':function(theEvent,theTemplate){
-			Session.set('addClasstoSchool',false);
-	  },
-	  'click #viewClasses':function(theEvent,theTemplate){
+	 'click #viewClasses':function(theEvent,theTemplate){
 			//console.log(this._id);
 			theEvent.preventDefault();
 			Meteor.flush();
@@ -47,6 +50,16 @@ if (Meteor.isClient) {
 		  Meteor.flush();
 		  Session.set('addTeachers',this._id);
 		  Session.set('viewClasses',false);
+	  },
+	  'change #teacherslist':function(theEvent,theTemplate){
+		  console.log(this);
+		   var classObj=SchoolObj.findOne({_id:this._id});
+		  console.log(this.username);
+		  var arr = (theEvent.target.value).split(".");
+		  var classId=arr[0];
+		  var teacherId=arr[1];
+		  Meteor.flush();
+		 
 	  }
   });
 
@@ -61,10 +74,28 @@ if (Meteor.isClient) {
 	  },
 		 
   });
+
+  Template.addTeachers.events({
+	  'submit form#addTeacherForm':function(theEvent,theTemplate){
+		  theEvent.preventDefault();
+		  Meteor.flush();
+		  var username=theTemplate.find("#username").value;
+		  var password=theTemplate.find("#pwd").value;
+		  SchoolObj.update(
+			{_id:this._id},
+			{$addToSet:{teachers:{uId:Date.now(),username:username,password:password}}}
+		  );
+		Session.set('addTeachers',false);
+	  }
+  });
 }
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
+	Meteor.publish('theSchoolList',function(){
+		return SchoolObj.find({ownerId:this.userId});
+	});
+  
   });
 }
