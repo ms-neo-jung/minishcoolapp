@@ -3,11 +3,16 @@
 </head>
 
 <body>
-  {{> login}}
+  <span style='float:left'>{{> login}}</span>
 </body>
 
 <template name="login">
-	<div>{{> loginButtons}}</div>
+	<div>
+		{{> loginTeacherForm}}
+		
+		{{> loginButtons}}
+		
+	</div>
 	<div>{{> addSchool}}</div>
 	<div>{{> schoolList}}</div>
 </template>

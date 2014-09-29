@@ -1,7 +1,6 @@
  Meteor.subscribe('theSchoolList');
- 
+ Meteor.subscribe('teachersData');
   Template.schoolList.list=function(){
-	  
 	  return SchoolObj.find({},{sort:{schoolName:-1}});
   };
 
@@ -11,8 +10,6 @@
 
   Template.schoolList.viewClass=function(){
 	  if(Session.equals('viewClasses',this._id)){		  
-		  	  console.log(this._id);
-			//var classNames=SchoolObj.findOne({_id:this._id});
 			var classNames=SchoolObj.findOne({_id:this._id});
 			return classNames;
 	  }		  
@@ -27,7 +24,6 @@
 			Session.set('addClasstoSchool',this._id);
 			Meteor.flush();
 			theTemplate.find("#className").focus();
-			//console.log(this._id);
 	  },
 	
 	  'keyup #className':function(theEvent,theTemplate){
@@ -59,16 +55,14 @@
 	  'change #teacherslist':function(theEvent,theTemplate){
 		  var arr = (theEvent.target.value).split(".");
 		  var schoolId=arr[0],classId=arr[1],teacherId=arr[2];
-		  var obj=SchoolObj.findOne({_id:schoolId});
-		  
-		  for(var i=0;i<obj.classes.length;i++){
-			  if(obj.classes[i].classId == classId){
-				  console.log(obj.classes[i].classId+"   "+classId);
-				  obj.classes[i].teachers=teacherId;
-			  }
-		  }
-		  console.log(obj.classes);
-		  SchoolObj.update({"_id":schoolId},{$set:{"classes":obj.classes}});
+		  if(!TeachersObj.findOne({"schoolId":schoolId,"teacherId":teacherId}) && teacherId!=null){
+			  TeachersObj.insert({
+				  "adminId":Meteor.userId(),
+				  "schoolId":schoolId,
+				  "classId":classId,
+				  "teacherId":teacherId
+				});
+			}
 	  }
   });
 
@@ -96,4 +90,17 @@
 		  );
 		Session.set('addTeachers',false);
 	  }
+  });
+
+  Template.loginTeacherForm.loginTeacher=function(){
+	  return (Session.equals('loginTeacher',true));
+  }
+  Template.loginTeacherForm.events({
+		'click #loginTeacher':function(theEvent,theTemplate){
+			theEvent.preventDefault()
+			Session.set('loginTeacher',true)
+		}
+		'submit #teacherLogin':function(theEvent,theTemplate){
+			theEvent.preventDefault();
+		}
   });

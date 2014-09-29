@@ -4,4 +4,7 @@ Meteor.startup(function () {
 		return SchoolObj.find({ownerId:this.userId});
 	});
   
+	Meteor.publish('teachersData',function(){
+		return TeachersObj.find({adminId:this.userId});
+	});
   });
