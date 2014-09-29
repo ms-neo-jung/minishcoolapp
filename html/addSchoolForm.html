@@ -1,0 +1,8 @@
+<template name="addSchool">
+	{{#if currentUser}} <!-- currentUser is helper object of Meteor.users -->
+		<form id="schoolForm">
+			<input type="text" id="schoolName" >
+			<input type="submit" value="Add School" >
+		</form>
+	{{/if}}
+</template>
