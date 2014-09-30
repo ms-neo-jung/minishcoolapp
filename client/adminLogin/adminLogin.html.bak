@@ -1,0 +1,7 @@
+<template name="adminLogin">
+	<div>
+		{{> loginButtons}}
+	</div>
+	<div>{{> addSchool}}</div>
+	<div>{{> schoolList}}</div>
+</template>
