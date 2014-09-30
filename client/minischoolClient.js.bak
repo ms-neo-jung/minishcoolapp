@@ -99,7 +99,7 @@
 		'click #loginTeacher':function(theEvent,theTemplate){
 			theEvent.preventDefault()
 			Session.set('loginTeacher',true)
-		},
+		}
 		'submit #teacherLogin':function(theEvent,theTemplate){
 			theEvent.preventDefault();
 		}
