@@ -7,12 +7,10 @@ Template.loginTeacherForm.events({
 				function(err){
 					if(err){			
 						console.log("Invalid login");
-						//return false;
-					}
-					else{
-						Router.go("/");
+						return false;
 					}
 				}
 			);
+			Router.go("/");
 		}
   });

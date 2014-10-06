@@ -1,4 +1,4 @@
 /* CSS declarations go here */
-ul li{
-margin:25px;
+.navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner{
+	padding:0px;
 }

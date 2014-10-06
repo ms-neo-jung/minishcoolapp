@@ -1,5 +1,34 @@
 <template name="layout">
+	<div class="navbar navbar-fixed-top">
+       <div class="navbar-inner">
+			{{> nav}}
+       </div>
+     </div>
+
 	<div class='container'>
-		{{> yield}}
+		{{#if currentUser}}
+			{{> yield}}
+		{{else}}
+			<h1>Login to continue</h1>
+		{{/if}}
 	</div>
+</template>
+
+<template name="nav">
+	<div class="container">
+        <ul class="nav">  
+			  <li class="active">  
+				<a class="brand" href="#">MiniSchoolApp</a>  
+			  </li>  
+			  <!--<li><a href="#">About</a></li>  
+			  <li><a href="#">Portfolio</a></li>  
+			  <li><a href="#">Contact</a></li> -->
+		</ul>
+		<ul class="nav pull-left">  
+			<li class="">
+				{{> loginButtons}}
+			</li>
+		</ul>
+	</div>
+
 </template>

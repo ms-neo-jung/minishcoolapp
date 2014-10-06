@@ -1,25 +1,22 @@
  Meteor.subscribe('theSchoolList');
  Meteor.subscribe('teachersData');
- 
-  Template.addTeachers.events({
-	  'submit form#addTeacherForm':function(theEvent,theTemplate){
-		  theEvent.preventDefault();
-		  Meteor.flush();
-		  var username=theTemplate.find("#username").value;
-		  var password=theTemplate.find("#pwd").value;
-		  SchoolObj.update(
-			{_id:this._id},
-			{$addToSet:{teachers:{uId:Date.now(),username:username,password:password}}}
-		  );
-		Session.set('addTeachers',false);
-	  }
-  });
 
-  Template.loginTeacherForm.events({	
-		'submit #teacherLogin':function(theEvent,theTemplate){
-			theEvent.preventDefault();
-			var username = theTemplate.find("#username").value;
-			var pwd = theTemplate.find("#pwd").value;
+ //Autosubscribe when the Session 'allocateTeachers gets set' and refreshes the template
+ Meteor.autosubscribe(function(){
+	 Meteor.subscribe('directory',Session.get("allocateTeachers"));
+ });
 
-		}
+Meteor.startup(function () {
+  Deps.autorun(function () {
+    if(!Meteor.userId()){
+      //no user is logged in.  ensure they are not on a protected route
+      Deps.nonreactive(function () {	  
+        var protected_paths = ['addTeacherForm', 'addSchoolForm'];
+        var context = Router.current();
+        if(context){
+          Router.go('adminLogin');
+        }
+      });
+    }
   });
+});

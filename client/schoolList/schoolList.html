@@ -1,5 +1,5 @@
 <template name="schoolList">
-	{{#if list}}
+	<!--{{#if list}}
 		<ul>
 			{{#each list}}
 				<li>
@@ -41,5 +41,63 @@
 				</li>
 			{{/each}}
 		</ul>
-	{{/if}}
+	{{/if}}-->
+	
+	{{> addSchool}}
+
+	<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>School Name</th>
+            <th>View Classes</th>
+            <th>Add Class</th>
+            <th>Allocate Teachers</th>
+        </tr>
+    </thead>
+    <tbody>
+		{{#each schools}}
+        <tr>
+            <td>{{_id}}</td>
+            <td>{{schoolName}}</td>
+            <td><a href="" id="viewClasses">View Classes</a></td>
+            <td>
+				{{#if addClass}}
+						<form id="addClass">
+							<div class="form-group">
+							<input type='text' class="form-control" id="inputClassName" placeholder="Enter Class Name">
+							</div>
+						</form>
+				{{else}}
+					<a href="" id="addClassLink">Add Class</a>
+				{{/if}}
+			</td>
+            <td>
+				{{#if allocateTeachers}}
+					<select>
+						<option>--Allocate Teacher--</option>
+						{{#each ../teacherDroplist}}
+							<option>{{profile.name}}</option>
+						{{/each}}
+					</select>
+				{{else}}
+					<a href="" id="allocateTeachers">Allocate Teachers</a>
+				{{/if}}
+			</td>
+        </tr>
+		{{/each}}
+
+    </tbody>
+</table>
+	
+</template>
+
+<template name="school">
+		{{#each schools}}
+			{{schoolName}}
+				{{#each ../teacherDroplist}}
+					{{profile.name}}
+				{{/each}}
+		{{/each}}
+	
 </template>

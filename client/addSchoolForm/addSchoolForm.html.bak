@@ -1,5 +1,5 @@
 <template name='addSchool'>
-	<form id="addSchool">
+	<form id="createSchool">
 		<div class="form-group">
 			<input type='text' class="form-control" id="inputSchoolName" placeholder="Add School">
 		</div>

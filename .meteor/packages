@@ -5,10 +5,12 @@
 
 standard-app-packages
 insecure
-accounts-ui
 accounts-password
 accounts-twitter
 accounts-facebook
 iron:router
+accounts-base
+nemo64:bootstrap
+accounts-ui
 bootstrap
 
