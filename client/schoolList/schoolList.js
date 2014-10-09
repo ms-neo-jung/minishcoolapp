@@ -32,10 +32,9 @@
 	  },
 	
 	 'click #viewClasses':function(theEvent,theTemplate){
-			theEvent.preventDefault();
 			Session.set('viewClasses',this._id);
-			Session.set('addTeachers',false);
-			Meteor.flush();
+			//Session.set('addTeachers',false);
+			
 	  },
 	
 	  'click #allocateTeachers':function(theEvent,theTemplate){

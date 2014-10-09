@@ -8,8 +8,12 @@ Meteor.startup(function () {
 		return TeachersObj.find({adminId:this.userId});
 	});
 
-	Meteor.publish("directory", function () {
-		return Meteor.users.find({}, {fields: {name: 1, profile: 1}});
+	Meteor.publish("directory", function (schoolId) {
+		return Meteor.users.find({"profile.schoolId":schoolId}, {fields: {name: 1, profile: 1}});
+	});
+
+	Meteor.publish("classList",function(schoolId){
+		return SchoolObj.find({_id:schoolId});
 	});
 
   });

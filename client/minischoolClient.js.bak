@@ -1,8 +1,14 @@
  Meteor.subscribe('theSchoolList');
  Meteor.subscribe('teachersData');
- 
+
+ //Autosubscribe when the Session 'allocateTeachers gets set' and refreshes the template
  Meteor.autosubscribe(function(){
 	 Meteor.subscribe('directory',Session.get("allocateTeachers"));
+ });
+
+ Meteor.autosubscribe(function(){
+	 console.log("AutoSubscribe "+Session.get('viewClasses'));
+	 Meteor.subscribe('classList',Session.get('viewClasses'));
  });
 
 Meteor.startup(function () {

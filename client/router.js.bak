@@ -20,16 +20,26 @@ Router.map(function(){
 
 	this.route('schoolList',{
 		path:"/schoolList",
-		data: function() {
-			console.log(Session.get("allocateTeachers"));
+		data: function() {	
 		templateData = { 
 			schools: SchoolObj.find({}),
 			teacherDroplist:Meteor.users.find({"profile.schoolId":Session.get("allocateTeachers")})
 			
 		};
-			console.log(templateData.teacherDroplist);
 			return templateData;
 		}	
+	});
+
+	this.route('viewClasses',{
+		path:"/viewClasses",
+		data:function(){
+			
+			classData={
+				viewClasses:SchoolObj.find({_id:Session.get('viewClasses')})
+			};
+			
+			return classData;
+		}
 	});
 
 });

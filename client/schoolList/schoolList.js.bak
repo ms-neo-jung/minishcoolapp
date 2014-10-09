@@ -22,7 +22,6 @@
 
   Template.schoolList.events({
 	  'click #addClassLink':function(theEvent,theTemplate){
-		    console.log(this._id);
 			Session.set('addClass',this._id);
 			Meteor.flush();
 			theTemplate.find("#inputClassName").focus();
@@ -33,9 +32,8 @@
 	  },
 	
 	 'click #viewClasses':function(theEvent,theTemplate){
-			theEvent.preventDefault();
 			Session.set('viewClasses',this._id);
-			Session.set('addTeachers',false);
+			//Session.set('addTeachers',false);
 			Meteor.flush();
 	  },
 	

@@ -16,8 +16,8 @@
 				  name:teacherName,
 				  teacherId:Date.now(),
 				  schoolId:this._id
-			  },
-			  schoolId:this._id
+			  }
+			  
 		  },function(err){
 				  if(err){
 					  console.log("Error while adding user " + err);

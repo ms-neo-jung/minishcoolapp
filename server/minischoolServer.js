@@ -12,4 +12,8 @@ Meteor.startup(function () {
 		return Meteor.users.find({"profile.schoolId":schoolId}, {fields: {name: 1, profile: 1}});
 	});
 
+	/*Meteor.publish("classList",function(schoolId){
+		return SchoolObj.find({_id:schoolId});
+	});*/
+
   });

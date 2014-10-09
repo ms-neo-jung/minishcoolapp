@@ -30,6 +30,18 @@ Router.map(function(){
 		}	
 	});
 
+	this.route('viewClasses',{
+		path:"/viewClasses",
+		data:function(){
+			
+			classData={
+				viewClasses:SchoolObj.findOne({_id:Session.get('viewClasses')})
+			};
+			
+			return classData;
+		}
+	});
+
 });
 
 

@@ -60,7 +60,7 @@
         <tr>
             <td>{{_id}}</td>
             <td>{{schoolName}}</td>
-            <td><a href="" id="viewClasses">View Classes</a></td>
+            <td><a href="{{pathFor viewClasses}}" id="viewClasses">View Classes</a></td>
             <td>
 				{{#if addClass}}
 						<form id="addClass">
@@ -100,12 +100,4 @@
 				{{/each}}
 		{{/each}}
 	
-</template>
-
-<template name='addClass'>
-	<form id="addClass">
-		<div class="form-group">
-			<input type='text' class="form-control" id="inputClassName" placeholder="Enter Class Name">
-		</div>
-	</form>
 </template>

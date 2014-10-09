@@ -6,6 +6,11 @@
 	 Meteor.subscribe('directory',Session.get("allocateTeachers"));
  });
 
+ /*Meteor.autosubscribe(function(){
+	 console.log("AutoSubscribe "+Session.get('viewClasses'));
+	 Meteor.subscribe('classList',Session.get('viewClasses'));
+ });*/
+
 Meteor.startup(function () {
   Deps.autorun(function () {
     if(!Meteor.userId()){
