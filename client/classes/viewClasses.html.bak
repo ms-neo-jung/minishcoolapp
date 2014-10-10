@@ -1,0 +1,20 @@
+<template name="viewClasses">
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>School ID</th>
+				<th>School Name</th>
+				<th>Allocate Teachers</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each viewClasses.classes}}
+				<tr>
+					<td>{{classId}}</td>
+					<td>{{this.name}}</td>
+					<td>Allocate Teachers</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</template>
